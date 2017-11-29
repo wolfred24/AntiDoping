@@ -10,13 +10,16 @@ package antidoping;
  * @author fred_
  */
 public class Main {
-
+    public static String user;
+    public static String privileges;
+//    public static DBHandler dbh = new DBHandler(user, password);
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new fLogin().setVisible(true);
+        
+        new FInicial().setVisible(true);
     }
     
 }

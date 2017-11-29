@@ -1,4 +1,25 @@
 create database antidoping;
 use antidoping;
+create table Empresas(idEmpresa int AUTO_INCREMENT, NameEmpresa varchar(45),Domicilio varchar(40), RFC varchar(25), Colonia varchar(40), PRIMARY KEY (idEmpresa));
+create table Donantes(idDonante int AUTO_INCREMENT, NameDonante varchar(45), Licencia varchar(15), FechaNacimiento date , Genero boolean, idEmpresa int, PRIMARY KEY (idDonante), FOREIGN KEY(idEmpresa) references Empresas (idEmpresa));
+create table Medicos(idMedico int AUTO_INCREMENT, NameMedico varchar(45), userName varchar(20), Password varchar(40), Permisos boolean, PRIMARY KEY (idMedico));
+create table Drogas(idDroga int AUTO_INCREMENT, NameDroga varchar(45), PRIMARY KEY (idDroga));
+create table Folios(idFolio int AUTO_INCREMENT, idDonante int, idMedico int, idDroga int, RazonPrueba varchar(100), ResultAntidoping boolean,MedicamentoActual varchar(50), MedicamentoRecetado varchar(50), FechaHora datetime, Observaciones varchar(100), Suspension varchar(30), NumeroCamion int, PRIMARY KEY (idFolio), FOREIGN KEY(idMedico) references Medicos (idMedico), FOREIGN KEY(idDroga) references Drogas (idDroga), FOREIGN KEY(idDonante) references Donantes (idDonante));
 
-create table donante(idDonante int AUTO_INCREMENT primary key, Nombre);
+insert into Drogas values ('1','marihuana');
+insert into Drogas values ('2','cocaina');
+insert into Drogas values ('3','cristal');
+insert into Drogas values ('4','extasis');
+insert into Medicos values ('1','edgar flores','edgar','1234','1');
+insert into Medicos values ('2','julio gomez','julio','12345','0');
+insert into Medicos values ('3','rene perez','rene','123456','0');
+insert into Medicos values ('4','miguel navarro','miguel','1234567','1');
+insert into empresas values ('1','primera plus','central nueva','H3IN2I243N567','tlaquepaque');
+insert into empresas values ('2','vallarta plus','central nueva','2J345M566K356','tlaquepaque');
+insert into empresas values ('3','etn','central nueva','3YUJ35MK7J8KM5K7','tlaquepaque');
+insert into donantes values ('1','jose perez','12tb4k6788j4424','1978/09/12','0','1');
+insert into donantes values ('2','karla rodriguez','1245782tb4k6724','1978/09/12','1','2');
+insert into donantes values ('3','daniel gomez','15755h82tb4k67','1989/11/1','0','3');
+insert into folios values ('1','1','2','1','rutina','1','ninguno','ninguno','1989/11/1','----','no','1234');
+insert into folios values ('2','2','1','2','rutina','0','ninguno','paracetamol','2016/01/2','ojos rojos','3 dias','0987');
+insert into folios values ('3','3','3','3','rutina','0','ninguno','ninguno','2017/11/4','alteracion','1 dia','6788');
