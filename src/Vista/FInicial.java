@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package antidoping;
+package Vista;
+
+import Controlador.DBConection;
+import Modelo.DBHandler;
+import static Vista.Main.dbUser;
 
 /**
  *
@@ -89,7 +93,7 @@ public class FInicial extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -103,9 +107,9 @@ public class FInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String user = jTextField1.getText();
-        String password = jPasswordField1.getText();
-        DBHandler dbh = new DBHandler(user, password);
+        Main.dbUser = jTextField1.getText();
+        String dbPassword = jPasswordField1.getText();
+        DBHandler dbh = new DBHandler(dbUser, dbPassword);
         if(dbh.getStatus() == true){ 
             new FLogin(dbh).setVisible(true);
             dispose();
