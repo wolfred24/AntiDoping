@@ -69,20 +69,20 @@ public class DBHandler {
         return RS;
     }
     
-        public boolean login(String user, String password){
+        public ResultSet login(String user, String password){
         String[] valores;
         boolean result = false;
         dbc.conect();
         try{
             stmnt = con.createStatement();
-            RS = stmnt.executeQuery("SELECT userName, permisos FROM Medicos WHERE userName='"+user+"' AND password='"+password+"'");
+            RS = stmnt.executeQuery("SELECT idMedico, nameMedico, userName, permisos FROM Medicos WHERE userName='"+user+"' AND password='"+password+"'");
             result = RS.first();
             //Main.privileges = RS.
             System.out.println(RS.first());
         } catch(SQLException e){
             e.printStackTrace();
         }
-        return result;
+        return RS;
     }
 
     

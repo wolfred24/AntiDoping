@@ -7,6 +7,10 @@ package Vista;
 
 import Controlador.DBConection;
 import Modelo.DBHandler;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,6 +47,7 @@ public class FLogin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         pfPassword = new javax.swing.JPasswordField();
+        lError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +73,8 @@ public class FLogin extends javax.swing.JFrame {
 
         pfPassword.setText("1234567");
 
+        lError.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,7 +83,8 @@ public class FLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 175, Short.MAX_VALUE)
+                        .addComponent(lError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1))
@@ -87,7 +95,7 @@ public class FLogin extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfUsuario)
-                            .addComponent(pfPassword))))
+                            .addComponent(pfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,7 +112,8 @@ public class FLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(lError))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -118,11 +127,31 @@ public class FLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Main.user = tfUsuario.getText();
+        Main.userName = tfUsuario.getText();
         String password = pfPassword.getText();
-        if(dbh.login(Main.user,password)==true){
-            new FMenu().setVisible(true);
-            dispose();
+        boolean acces;
+        ResultSet rs = dbh.login(Main.userName,password);
+        try {
+            rs.first();
+            Main.doctorId = rs.getString("idMedico");
+            Main.doctorName = rs.getString("nameMedico");
+            Main.privilege = rs.getString("permisos");
+        } catch (SQLException ex) {
+            Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+                //valores.add(rs.getString(contador));
+            
+        try {
+            if(rs.first()==true){
+                System.out.println("User Name: "+Main.userName+"\nDoctor Name: "+Main.doctorName+"\nDoc Id: "+Main.doctorId+"\nPrivilege: "+Main.privilege);
+                new FMenu().setVisible(true);
+                dispose();
+            } else{
+                lError.setText("Credenciales incorrectas");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -170,6 +199,7 @@ public class FLogin extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lError;
     private javax.swing.JPasswordField pfPassword;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
