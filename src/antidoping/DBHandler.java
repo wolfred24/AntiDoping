@@ -100,8 +100,9 @@ public class DBHandler {
         conect();
         try{
             stmnt = con.createStatement();
-            RS = stmnt.executeQuery("SELECT userName FROM Medicos WHERE userName='"+user+"' AND password='"+password+"'");
+            RS = stmnt.executeQuery("SELECT userName, permisos FROM Medicos WHERE userName='"+user+"' AND password='"+password+"'");
             result = RS.first();
+            //Main.privileges = RS.
             System.out.println(RS.first());
         } catch(SQLException e){
             e.printStackTrace();
