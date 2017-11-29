@@ -13,6 +13,8 @@ public class Main {
     public static String dbUser;
     public static String dbPassword;
     public static String user;
+    public static String doctorName;
+    public static String doctorId;
     public static String privileges;
 //    public static DBHandler dbh = new DBHandler(user, password);
     /**
