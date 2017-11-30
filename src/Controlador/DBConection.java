@@ -12,9 +12,16 @@ public class DBConection {
     Statement stmnt = null;
     ResultSet RS = null;
     ResultSetMetaData rsmd = null;
-    static String user;
-    static String password;
+    static String user ="";
+    static String password ="";
     boolean status;
+
+    public DBConection() {
+//        this.user = user;
+//        this.password = password;
+    }
+    
+    
     
     public DBConection(String user, String password){
         this.user = user;

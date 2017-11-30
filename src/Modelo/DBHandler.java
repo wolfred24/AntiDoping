@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,9 +27,16 @@ public class DBHandler {
     Statement stmnt;
     ResultSet RS = null;
     ResultSetMetaData rsmd = null;
-    static String user;
-    static String password;
+    String user;
+    String password;
     boolean status;
+
+    public DBHandler() {
+        dbc = new DBConection();
+        con = dbc.getConection();
+    }
+    
+    
     
     public DBHandler(String user, String password) {
          dbc = new DBConection(user, password);
@@ -40,20 +48,31 @@ public class DBHandler {
     }
 
     
-    public ResultSet getColumnNames(){
+    public String[] getColumnNames(String tableName){
         dbc.conect();
+        int count = 0;
+        
         
         try {
             stmnt = con.createStatement();
-            RS = stmnt.executeQuery("Describe producto;");
+            RS = stmnt.executeQuery("SELECT * FROM "+tableName);
+            ResultSetMetaData metaData = RS.getMetaData();
             rsmd = RS.getMetaData();
-            while(RS.next())
-            System.out.println(RS.getString(1));
+            count = metaData.getColumnCount();
         } catch (SQLException ex) {
             Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return RS;
+        String columnName[] = new String[count];
+        for (int i = 1; i <= count; i++) {
+            try {
+                columnName[i - 1] = rsmd.getColumnLabel(i);
+            } catch (SQLException ex) {
+                Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(columnName[i - 1]);
+        }
+        return columnName;
     }
     
         public ResultSet getValues(String query){
@@ -68,6 +87,32 @@ public class DBHandler {
         }
         return RS;
     }
+        
+        public boolean update(String query){
+            dbc.conect();
+            boolean flag = false;
+        try {
+            stmnt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            flag = true;
+            JOptionPane.showMessageDialog(null,"Tipo de valor introducido incorrecto");
+            return flag;
+        }
+        return flag;
+        }
+        
+        public void deleteRow(String table, String column, String value){
+            dbc.conect();
+        try {
+            System.out.println("entro");
+            
+            stmnt.executeUpdate("DELETE FROM "+table+" WHERE "+column+"='"+value+"'");
+            System.out.println(table+" "+column+" "+value);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     
         public ResultSet login(String user, String password){
         String[] valores;

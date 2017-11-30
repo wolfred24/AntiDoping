@@ -144,7 +144,9 @@ public class FLogin extends javax.swing.JFrame {
             
         try {
             if(rs.first()==true){
-                System.out.println("User Name: "+Main.userName+"\nDoctor Name: "+Main.doctorName+"\nDoc Id: "+Main.doctorId+"\nPrivilege: "+Main.privilege);
+                System.out.println("User Name: "+Main.userName+"\nDoctor Name: "+
+                        Main.doctorName+"\nDoc Id: "+Main.doctorId+"\nPrivilege: "+
+                        Main.privilege);
                 new FMenu().setVisible(true);
                 dispose();
             } else{

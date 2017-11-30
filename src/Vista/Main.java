@@ -16,6 +16,7 @@ public class Main {
     public static String doctorName;
     public static String doctorId;
     public static String privilege;
+    public static String actualTable;
 //    public static DBHandler dbh = new DBHandler(user, password);
     /**
      * @param args the command line arguments

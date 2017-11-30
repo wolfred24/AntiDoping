@@ -108,9 +108,11 @@ public class FInicial extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Main.dbUser = jTextField1.getText();
-        String dbPassword = jPasswordField1.getText();
-        DBHandler dbh = new DBHandler(dbUser, dbPassword);
-        if(dbh.getStatus() == true){ 
+        Main.dbPassword = jPasswordField1.getText();
+        System.out.println(dbUser+Main.dbPassword);
+        DBHandler dbh = new DBHandler(dbUser, Main.dbPassword);
+        //dbh.getColumnNames("Folios");
+        if(dbh.getStatus() == true){
             new FLogin(dbh).setVisible(true);
             dispose();
         } else{
