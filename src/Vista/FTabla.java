@@ -55,6 +55,7 @@ public class FTabla extends javax.swing.JFrame {
             System.out.println(Main.privilege);
             System.out.println("++++++++++++++");
         }
+        setLocation(430, 1);
     }
     
     void prepararTabla() {
@@ -320,6 +321,13 @@ public class FTabla extends javax.swing.JFrame {
         
         if(Main.actualTable == "Medicos"){
             new Medicos(this).setVisible(true);
+        }
+        
+        if(Main.actualTable == "Drogas"){
+            new FDrogas(this).setVisible(true);
+        }
+        if(Main.actualTable == "Empresas"){
+            new FEmpresa(this).setVisible(true);
         }
     }//GEN-LAST:event_bAgregarActionPerformed
 

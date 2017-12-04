@@ -8,13 +8,13 @@ import java.util.logging.Logger;
 
 /** @author fred_ */
 public class DBConection {
-    Connection con = null;
-    Statement stmnt = null;
-    ResultSet RS = null;
-    ResultSetMetaData rsmd = null;
-    static String user ="";
-    static String password ="";
-    boolean status;
+    public Connection con = null;
+    public Statement stmnt = null;
+    public ResultSet RS = null;
+    public ResultSetMetaData rsmd = null;
+    public static String user ="";
+    public static String password ="";
+    public boolean status;
 
     public DBConection() {
 //        this.user = user;

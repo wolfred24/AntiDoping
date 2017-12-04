@@ -18,7 +18,11 @@ public class FMenu extends javax.swing.JFrame {
         initComponents();
         lMedico.setText(lMedico.getText()+Main.doctorName);
         lUserName.setText(lUserName.getText()+Main.userName);
-        lTipo.setText(lTipo.getText()+Main.privilege);
+        if (Main.privilege == 1) {
+            lTipo.setText(lTipo.getText()+"Medic@");
+        } else{
+            lTipo.setText(lTipo.getText()+"Enfermer@");
+        }
     }
 
     /**
