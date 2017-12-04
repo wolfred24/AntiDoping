@@ -135,7 +135,7 @@ public class FLogin extends javax.swing.JFrame {
             rs.first();
             Main.doctorId = rs.getString("idMedico");
             Main.doctorName = rs.getString("nameMedico");
-            Main.privilege = rs.getString("permisos");
+            Main.privilege = Integer.parseInt(rs.getString("permisos"));
         } catch (SQLException ex) {
             Logger.getLogger(FLogin.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -48,7 +48,13 @@ public class FTabla extends javax.swing.JFrame {
         if(tabla.getColumnCount()*90 > tabla.getWidth()){
             this.setSize(tabla.getColumnCount()*90, this.getHeight());
         }
-        
+        if(Main.privilege == 0 ){
+            bDelete.setEnabled(false);
+            bAgregar.setEnabled(false);
+            tabla.setEnabled(false);
+            System.out.println(Main.privilege);
+            System.out.println("++++++++++++++");
+        }
     }
     
     void prepararTabla() {
@@ -58,6 +64,8 @@ public class FTabla extends javax.swing.JFrame {
         tabla.setModel(dtm);
         addListener(tabla);
     }
+    
+    
     
     void updateTable(ResultSet rs) {
         int nColumns = dbh.getColumnNames(Main.actualTable).length;
@@ -82,7 +90,7 @@ public class FTabla extends javax.swing.JFrame {
 
     }
     
-    void updateTable() {
+    public void updateTable() {
         rs = dbh.getValues("SELECT * FROM "+Main.actualTable);
         int nColumns = dbh.getColumnNames(Main.actualTable).length;
         String[] valores = new String[nColumns];
@@ -155,7 +163,7 @@ public class FTabla extends javax.swing.JFrame {
 
         scrollpane = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        bAgregar = new javax.swing.JButton();
         cbOrderBy = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
@@ -182,7 +190,12 @@ public class FTabla extends javax.swing.JFrame {
         ));
         scrollpane.setViewportView(tabla);
 
-        jButton1.setText("Agregar");
+        bAgregar.setText("Agregar");
+        bAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAgregarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ordenar Por:");
 
@@ -222,7 +235,7 @@ public class FTabla extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bDelete)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(bAgregar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -248,7 +261,7 @@ public class FTabla extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(bAgregar)
                     .addComponent(lWindowName)
                     .addComponent(bDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -299,6 +312,17 @@ public class FTabla extends javax.swing.JFrame {
         updateTable();
     }//GEN-LAST:event_bDeleteActionPerformed
 
+    private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
+        // TODO add your handling code here:
+        if(Main.actualTable == "Donantes"){
+            new Donantes(this).setVisible(true);
+        }
+        
+        if(Main.actualTable == "Medicos"){
+            new Medicos(this).setVisible(true);
+        }
+    }//GEN-LAST:event_bAgregarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -336,11 +360,11 @@ public class FTabla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAgregar;
     private javax.swing.JButton bDelete;
     private javax.swing.JComboBox<String> cbOrderBy;
     private javax.swing.JComboBox<String> cbOrderTipe;
     private javax.swing.JComboBox<String> cbSearchBy;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

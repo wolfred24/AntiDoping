@@ -15,7 +15,7 @@ public class Main {
     public static String userName;
     public static String doctorName;
     public static String doctorId;
-    public static String privilege;
+    public static int privilege;
     public static String actualTable;
 //    public static DBHandler dbh = new DBHandler(user, password);
     /**

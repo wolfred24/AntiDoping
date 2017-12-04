@@ -129,6 +129,55 @@ public class DBHandler {
         }
         return RS;
     }
+        
+       public void insertDonante(String name, String licen, String fecha, int genero, String empresa) {
+        try {
+            dbc.conect();
+
+            stmnt = con.createStatement();
+
+            stmnt.executeUpdate("INSERT INTO donantes VALUES ('" + 0 + "','" + name + "','" + licen + "','" + fecha + "','"
+                    + genero + "',(select idempresa from empresas where nameempresa='" + empresa + "'))");
+            JOptionPane.showMessageDialog(null, "Los valores han sido agregados a la base de datos");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                    stmnt.close();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
+    }
+       
+       public void insertarMedico(String nmedico, String uname, String pass, int permit) {
+
+        try {
+            dbc.conect();
+
+            stmnt = con.createStatement();
+
+            stmnt.executeUpdate/*inser delete update*/("INSERT INTO medicos VALUES ('" + 0 + "','" +
+                    nmedico + "','" + uname + "','" + pass + "','" + permit + "')");
+            JOptionPane.showMessageDialog(null, "Los valores han sido agregados a la base de datos");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                    stmnt.close();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
+    }
 
     
     /*public static void main(String[] args) {
